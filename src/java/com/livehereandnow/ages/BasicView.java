@@ -40,6 +40,13 @@ public class BasicView {
         engine.doCmd("c");
     }
 
+    public void doTakeCard(int index) throws IOException, AgesException{
+        System.out.println(" DOING... USE SEQ TO TAKE CARD, SEQ="+index);
+//        engine.parser("take-card "+index);
+//        setDebug(this.getText()+"...");
+        
+    }
+   
     public void doSubmitCommand() throws IOException, AgesException{
         engine.parser(getText());
 //        setDebug(this.getText()+"...");
@@ -57,6 +64,24 @@ public class BasicView {
         return sb.toString();
     }
 
+    public String getImgBaseDir(){
+//        return "2nd2go.org/ages/img/abcd/d";
+        return "http://2nd2go.org/ages/img/abcd/d";
+//        return "/resources/img/d";
+    }
+    public String getImgExt(){
+        return ".jpg";
+    }
+    
+    public List<AgesCard> getCardRowIdList() {
+        return engine.getField().getCardRow();
+    }
+    public List<AgesCard> getP1Hand() {
+        return engine.getField().getP1().get手牌內政牌區();
+    }
+    public List<AgesCard> getP2Hand() {
+        return engine.getField().getP2().get手牌內政牌區();
+    }  
     public List<Cardrow> getCardRowInTable() {
         List<AgesCard> cardrow = engine.getField().getCardRow();
 

@@ -14,23 +14,23 @@
         <h1>better UI to develop Ages</h1>
         <h:form>
             <h:panelGrid columns="10" cellpadding="5">
-                <p:commandButton value="New Game" action="#{basicView.doNewGame()}" update="display,cardrow,round, player" icon="ui-icon-check" />
-                <p:commandButton value="Start" action="#{basicView.doStart()}" update="display,cardrow,round, player" icon="ui-icon-check" />
-            
-            </h:panelGrid>
-              <h:panelGrid columns="10" cellpadding="5">
-                <h:outputLabel for="name" value="Name:" style="font-weight:bold" />
-                <p:inputText id="name" value="#{basicView.text}" />
-                <p:commandButton value="Submit Command" action="#{basicView.doSubmitCommand()}" update="display,cardrow,round, player" icon="ui-icon-check" />
-                <h:outputText id="display" value="#{basicView.debug}" />
-            
-            </h:panelGrid>
-            <h:panelGrid columns="10" cellpadding="5">
-                <p:commandButton value="Change Turn" action="#{basicView.doChangeTurn()}" update="display,cardrow,round, player" icon="ui-icon-check" />
+                <p:commandButton value="New Game" action="#{basicView.doNewGame()}" update="display,cardrow,cardrow_img,round, player, p1hand" icon="ui-icon-check" />
+                <p:commandButton value="Start" action="#{basicView.doStart()}" update="display,cardrow,cardrow_img,round, player, p1hand" icon="ui-icon-check" />
 
             </h:panelGrid>
-            
-            
+            <h:panelGrid columns="10" cellpadding="5">
+                <h:outputLabel for="name" value="Name:" style="font-weight:bold" />
+                <p:inputText id="name" value="#{basicView.text}" />
+                <p:commandButton value="Submit Command" action="#{basicView.doSubmitCommand()}" update="display,cardrow,cardrow_img,round, player, p1hand" icon="ui-icon-check" />
+                <h:outputText id="display" value="#{basicView.debug}" />
+
+            </h:panelGrid>
+            <h:panelGrid columns="10" cellpadding="5">
+                <p:commandButton value="Change Turn" action="#{basicView.doChangeTurn()}" update="display,cardrow,cardrow_img,round, player, p1hand" icon="ui-icon-check" />
+
+            </h:panelGrid>
+
+
             <br></br>
             <table>
                 <tr>
@@ -48,6 +48,18 @@
                 </tr>
 
             </table>
+
+            <h:panelGrid id="cardrow_img" columns="13" cellpadding="0">
+                <c:forEach  var="zzz" items="#{basicView.cardRowIdList}">
+                    <h:commandButton action="#{basicView.doTakeCard(zzz.seq)}" image="#{basicView.imgBaseDir}#{zzz.id}#{basicView.imgExt}" >
+                        <f:ajax render="@this" />
+                    </h:commandButton>    
+                </c:forEach>
+            </h:panelGrid>
+
+
+
+
 
             <h:dataTable id="cardrow" value="#{basicView.cardRowInTable}" var="xxx" style="border-style: solid">
 
@@ -68,6 +80,32 @@
                 </h:column>
 
             </h:dataTable>
+
+
+            <p:tabView id="p1hand">
+                <p:tab title="AAA">
+                    <h1>AAA area</h1> 
+                    <h:panelGrid  columns="13" cellpadding="0">
+                        <c:forEach  var="zzz" items="#{basicView.p1Hand}">
+                            <h:commandButton action="#{basicView.doTakeCard(zzz.seq)}" image="#{basicView.imgBaseDir}#{zzz.id}#{basicView.imgExt}" >
+                                <f:ajax render="@this" />
+                            </h:commandButton>    
+                        </c:forEach>
+                    </h:panelGrid>
+                </p:tab>
+                <p:tab title="BBB">
+                    <h1>BBB area</h1>    
+                    <h:panelGrid  columns="13" cellpadding="0">
+                        <c:forEach  var="zzz" items="#{basicView.p2Hand}">
+                            <h:commandButton action="#{basicView.doTakeCard(zzz.seq)}" image="#{basicView.imgBaseDir}#{zzz.id}#{basicView.imgExt}" >
+                                <f:ajax render="@this" />
+                            </h:commandButton>    
+                        </c:forEach>
+                    </h:panelGrid>
+            
+                </p:tab>
+
+            </p:tabView>
 
         </h:form>
     </h:body>
